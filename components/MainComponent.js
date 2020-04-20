@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { ScrollView, Text, View, Image, StyleSheet } from 'react-native';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+import { Icon } from 'react-native-elements';
+
 
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
@@ -41,6 +44,25 @@ const HeaderOptions = {
     }
 };
 
+const CustomDrawerContentComponent = (props) => (
+    <ScrollView>
+        <View style={styles.drawerHeader}>
+            <View style={{flex: 1}}>
+                <Image 
+                    source={require('./images/logo.png')}
+                    style={styles.drawerImage}
+                />
+            </View>
+            <View style={{flex: 2}}>
+                <Text style={styles.drawerHeaderText}>
+                    Ristorante Con Fusion
+                </Text>
+            </View>
+        </View>
+        <DrawerItemList {...props}/>
+    </ScrollView>
+);
+
 function MenuNavigatorScreen() {
     return(
         <MenuNavigator.Navigator
@@ -50,6 +72,20 @@ function MenuNavigatorScreen() {
             <MenuNavigator.Screen
                 name="Menu"
                 component={Menu}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
             />
             <MenuNavigator.Screen
                 name="Dishdetail"
@@ -72,6 +108,20 @@ function HomeNavigatorScreen() {
             <HomeNavigator.Screen
                 name="Home"
                 component={Home}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
             />
         </HomeNavigator.Navigator>
     );
@@ -88,12 +138,38 @@ function ContactNavigatorScreen(){
             <ContactNavigator.Screen
                 name="Contact Us"
                 component={Contact}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
             />
         </ContactNavigator.Navigator>
     );
 }
 
 const AboutUsNavigator = createStackNavigator();
+
+const MenuIcon = (props) => {
+    return(
+        <Icon 
+            name='menu' 
+            size={24}
+            color='white'
+            onPress={() =>
+                props.navigation.toggleDrawer()}
+        />
+    );
+}
 
 function AboutUsNavigatorScreen(){
     return(
@@ -104,6 +180,12 @@ function AboutUsNavigatorScreen(){
             <ContactNavigator.Screen
                 name="About Us"
                 component={About}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => <MenuIcon navigation={navigation}/>
+                    
+                    })
+                 }
             />
         </AboutUsNavigator.Navigator>
 
@@ -119,11 +201,65 @@ function MainNavigatorDrawer() {
             drawerStyle={{
                 backgroundColor:'#D1C4E9'
             }}
+            drawerContent={props => <CustomDrawerContentComponent {...props}/>}
         >
-            <MainNavigator.Screen name="Home"       component={HomeNavigatorScreen} />
-            <MainNavigator.Screen name="Contact Us" component={ContactNavigatorScreen} />
-            <MainNavigator.Screen name="Menu"       component={MenuNavigatorScreen} />
-            <MainNavigator.Screen name="About Us"   component={AboutUsNavigatorScreen} />
+            <MainNavigator.Screen 
+                name="Home"       
+                component={HomeNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='home'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}
+
+            />
+            <MainNavigator.Screen 
+                name="Contact Us" 
+                component={ContactNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='address-card'
+                            type='font-awesome'
+                            size={22}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <MainNavigator.Screen 
+                name="Menu"       
+                component={MenuNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='list'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <MainNavigator.Screen 
+                name="About Us"   
+                component={AboutUsNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='info-circle'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
         </MainNavigator.Navigator>
     );
 }
@@ -139,5 +275,30 @@ class Main extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    drawerHeader: {
+      backgroundColor: '#512DA8',
+      height: 140,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+      flexDirection: 'row'
+    },
+    drawerHeaderText: {
+      color: 'white',
+      fontSize: 24,
+      fontWeight: 'bold'
+    },
+    drawerImage: {
+      margin: 10,
+      width: 80,
+      height: 60
+    }
+  });
+  
   
 export default Main;
