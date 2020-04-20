@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View, Image, StyleSheet } from 'react-native';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
@@ -138,9 +138,8 @@ function ContactNavigatorScreen(){
             <ContactNavigator.Screen
                 name="Contact Us"
                 component={Contact}
-                options={
-                    ({navigation}) => ({
-                        headerLeft: () => (
+                options={{
+                        headerLeft: ({navigation}) => (
                             <Icon 
                                 name='menu' 
                                 size={24}
@@ -148,10 +147,8 @@ function ContactNavigatorScreen(){
                                 onPress={() => 
                                     navigation.toggleDrawer()}
                             />
-                        )
-                    
-                    })
-                 }
+                        ) 
+                 }}
             />
         </ContactNavigator.Navigator>
     );
@@ -177,7 +174,7 @@ function AboutUsNavigatorScreen(){
             initialRouteName='About Us'
             screenOptions={HeaderOptions}
         >
-            <ContactNavigator.Screen
+            <AboutUsNavigator.Screen
                 name="About Us"
                 component={About}
                 options={
