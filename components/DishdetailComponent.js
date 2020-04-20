@@ -36,7 +36,24 @@ function RenderComments(props) {
         </Card>
     );
 }
-
+/*
+<Card
+featuredTitle={dish.name}
+image={{uri: baseUrl + dish.image}}>
+>
+<Text style={{margin: 10}}>
+    {dish.description}
+</Text>
+<Icon
+    raised
+    reverse
+    name={ props.favorite ? 'heart' : 'heart-o'}
+    type='font-awesome'
+    color='#f50'
+    onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
+/>
+</Card>
+*/
 function RenderDish(props) {
 
     const dish = props.dish;
@@ -45,7 +62,7 @@ function RenderDish(props) {
             return(
                 <Card
                     featuredTitle={dish.name}
-                    image={{uri: baseUrl + dish.image}}>
+                    image={{uri: baseUrl + dish.image}}
                 >
                     <Text style={{margin: 10}}>
                         {dish.description}
@@ -58,7 +75,7 @@ function RenderDish(props) {
                         color='#f50'
                         onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
                     />
-                </Card>
+                </Card>             
             );
         }
         else {
