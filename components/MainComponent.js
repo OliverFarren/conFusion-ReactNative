@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
-
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
@@ -31,6 +32,21 @@ Also, if you read my solution on the forum, and find it useful, please upvote so
 that others can find it.
 */
 
+const mapStateToProps = state => {
+    return {
+      dishes: state.dishes,
+      comments: state.comments,
+      promotions: state.promotions,
+      leaders: state.leaders
+    }
+  }
+
+const mapDispatchToProps = dispatch => ({
+    fetchDishes: () => dispatch(fetchDishes()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders()),
+})
 
 const MenuNavigator = createStackNavigator();
 
@@ -138,8 +154,9 @@ function ContactNavigatorScreen(){
             <ContactNavigator.Screen
                 name="Contact Us"
                 component={Contact}
-                options={{
-                        headerLeft: ({navigation}) => (
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
                             <Icon 
                                 name='menu' 
                                 size={24}
@@ -147,8 +164,10 @@ function ContactNavigatorScreen(){
                                 onPress={() => 
                                     navigation.toggleDrawer()}
                             />
-                        ) 
-                 }}
+                        )
+                    
+                    })
+                 }
             />
         </ContactNavigator.Navigator>
     );
@@ -179,8 +198,8 @@ function AboutUsNavigatorScreen(){
                 component={About}
                 options={
                     ({navigation}) => ({
-                        headerLeft: () => <MenuIcon navigation={navigation}/>
-                    
+                        headerLeft: () => 
+                            <MenuIcon navigation={navigation}/>
                     })
                  }
             />
@@ -263,6 +282,13 @@ function MainNavigatorDrawer() {
 
 class Main extends Component {
 
+    componentDidMount() {
+        this.props.fetchDishes();
+        this.props.fetchComments();
+        this.props.fetchPromos();
+        this.props.fetchLeaders();
+      }
+
   render() {
  
     return(
@@ -298,4 +324,4 @@ const styles = StyleSheet.create({
   });
   
   
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
