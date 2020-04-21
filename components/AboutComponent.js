@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, FlatList } from 'react-native';
+import { ScrollView, Text, View, FlatList, ActionSheetIOS } from 'react-native';
 import { ListItem, Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -10,6 +10,7 @@ const mapStateToProps = state => {
       leaders: state.leaders
     }
   }
+
 
 const History = () => {
     return(
@@ -24,7 +25,7 @@ const History = () => {
 class About extends Component {
     render(){
         console.log(this.props);
-
+        
         const renderLeader = ({item,index}) => {
             return(
                 <ListItem
