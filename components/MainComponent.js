@@ -13,6 +13,8 @@ import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoriteComponent';
+
 /*
 Notes to Coursera Reviewers
 
@@ -238,6 +240,36 @@ function AboutUsNavigatorScreen(){
     )
 }
 
+const FavoritesNavigator = createStackNavigator();
+
+function FavoritesNavigatorScreen(){
+    return(
+        <FavoritesNavigator.Navigator
+            initialRouteName='Favorites'
+            screenOptions={HeaderOptions}
+        >
+            <FavoritesNavigator.Screen
+                name="Favorites"
+                component={Favorites}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </FavoritesNavigator.Navigator>
+    );
+}
+
 const MainNavigator = createDrawerNavigator();
 
 function MainNavigatorDrawer() {
@@ -278,20 +310,7 @@ function MainNavigatorDrawer() {
                     )
                 }}                
             />
-            <MainNavigator.Screen 
-                name="Reserve Table" 
-                component={ReservationNavigatorScreen}
-                options={{
-                    drawerIcon: ({tintColor}) => (
-                        <Icon
-                            name='cutlery'
-                            type='font-awesome'
-                            size={22}
-                            color={tintColor}
-                        />
-                    )
-                }}                
-            />
+
             <MainNavigator.Screen 
                 name="Menu"       
                 component={MenuNavigatorScreen} 
@@ -320,6 +339,34 @@ function MainNavigatorDrawer() {
                     )
                 }}                
             />
+            <MainNavigator.Screen 
+                name="Reserve Table" 
+                component={ReservationNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='cutlery'
+                            type='font-awesome'
+                            size={22}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <MainNavigator.Screen 
+                name="Favorites" 
+                component={FavoritesNavigatorScreen}
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='heart'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />            
         </MainNavigator.Navigator>
     );
 }

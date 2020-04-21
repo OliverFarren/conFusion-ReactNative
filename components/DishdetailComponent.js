@@ -159,8 +159,9 @@ class Dishdetail extends Component {
                 >
                     <View style = {styles.modal}>
                         <Rating
-                            startingValue={this.state.rating}
-                            showRating
+                            value={this.state.rating}
+                            startingValue={5}
+                            showRating={true}
                             onFinishRating={(rating) => this.setState({rating})}
                             style={{ paddingVertical: 10 }}
                         />
