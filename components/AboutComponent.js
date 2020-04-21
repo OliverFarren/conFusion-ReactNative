@@ -22,8 +22,8 @@ const History = () => {
 };
 
 class About extends Component {
-
     render(){
+        console.log(this.props);
 
         const renderLeader = ({item,index}) => {
             return(
