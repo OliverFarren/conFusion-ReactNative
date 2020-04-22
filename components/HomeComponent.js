@@ -92,19 +92,19 @@ class Home extends Component {
             <Animated.View style={{ width: '100%', transform: [{translateX: xpos1}]}}>
                 <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
                     isLoading={this.props.dishes.isLoading}
-                    erreMess={this.props.dishes.erreMess} 
+                    errMess={this.props.dishes.errMess} 
                     />
             </Animated.View>
             <Animated.View style={{ width: '100%',  transform: [{translateX: xpos2}]}}>
                 <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
                     isLoading={this.props.promotions.isLoading}
-                    erreMess={this.props.promotions.erreMess} 
+                    errMess={this.props.promotions.errMess} 
                     />
             </Animated.View>
             <Animated.View style={{ width: '100%',  transform: [{translateX: xpos3}]}}>
                 <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
                     isLoading={this.props.leaders.isLoading}
-                    erreMess={this.props.leaders.erreMess} 
+                    errMess={this.props.leaders.errMess} 
                     />
                 </Animated.View>
             </View>

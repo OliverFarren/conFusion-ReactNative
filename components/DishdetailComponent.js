@@ -55,8 +55,16 @@ function RenderDish(props) {
 
     const dish = props.dish;
     
-    const recognizeDrag = ({ dx }) => {
+    const recognizeDragRightToLeft = ({ dx }) => {
         if ( dx < -200 )
+            return true;
+        else
+            return false;
+    }
+
+    //Recognises drag from Left to Right
+    const recognizeComment = ({dx}) => {
+        if ( dx > 200 )
             return true;
         else
             return false;
@@ -71,7 +79,7 @@ function RenderDish(props) {
         },
         onPanResponderEnd: (e, gestureState) => {
             console.log("pan responder end", gestureState);
-            if (recognizeDrag(gestureState))
+            if (recognizeDragRightToLeft(gestureState))
                 Alert.alert(
                     'Add Favorite',
                     'Are you sure you wish to add ' + dish.name + ' to favorite?',
@@ -81,6 +89,9 @@ function RenderDish(props) {
                     ],
                     { cancelable: false }
                 );
+            //React Native Assignment Week 3 Task 3
+            if (recognizeComment(gestureState))
+                props.onCommentPress();
 
             return true;
         }
