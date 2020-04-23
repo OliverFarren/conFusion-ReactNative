@@ -8,31 +8,13 @@ import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
 import Home from './HomeComponent';
+import Login from './LoginComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
 import Favorites from './FavoriteComponent';
-
-/*
-Notes to Coursera Reviewers
-
-Due to difficulties getting this course working as described, this project 
-uses the latest version of react-navigation which has meant
-the construct of the Stack Navigator and Drawer Navigator are different.
-
-I have written about this in the forum:
-https://www.coursera.org/learn/react-native/discussions/weeks/1/threads/8PifLG4EQ724nyxuBDO9DQ
-
-Where you can see the details of the Stack Navigator version differences.
-
-Please don't penalise my solution for not being an exact copy since it still implements
-the Week 1 assignment functionality (to the best of my knowledge) correctly.
-
-Also, if you read my solution on the forum, and find it useful, please upvote so
-that others can find it.
-*/
 
 const mapStateToProps = state => {
     return {
@@ -50,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
     fetchLeaders: () => dispatch(fetchLeaders()),
 })
 
-const MenuNavigator = createStackNavigator();
+
 
 const HeaderOptions = {
     headerStyle: {
@@ -62,24 +44,98 @@ const HeaderOptions = {
     }
 };
 
-const CustomDrawerContentComponent = (props) => (
-    <ScrollView>
-        <View style={styles.drawerHeader}>
-            <View style={{flex: 1}}>
-                <Image 
-                    source={require('./images/logo.png')}
-                    style={styles.drawerImage}
-                />
-            </View>
-            <View style={{flex: 2}}>
-                <Text style={styles.drawerHeaderText}>
-                    Ristorante Con Fusion
-                </Text>
-            </View>
-        </View>
-        <DrawerItemList {...props}/>
-    </ScrollView>
-);
+
+const HomeNavigator = createStackNavigator();
+
+function HomeNavigatorScreen() {
+    return(
+        <HomeNavigator.Navigator
+            initialRouteName='Home'
+            screenOptions={HeaderOptions}
+        >
+            <HomeNavigator.Screen
+                name="Home"
+                component={Home}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </HomeNavigator.Navigator>
+    );
+}
+
+const LoginNavigator = createStackNavigator();
+
+function LoginNavigatorScreen(){
+    return(
+        <LoginNavigator.Navigator
+            initialRouteName='Login'
+            screenOptions={HeaderOptions}
+        >
+            <LoginNavigator.Screen
+                name="Login"
+                component={Login}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </LoginNavigator.Navigator>
+    );
+}
+
+const ContactNavigator = createStackNavigator();
+
+function ContactNavigatorScreen(){
+    return(
+        <ContactNavigator.Navigator
+            initialRouteName='Contact Us'
+            screenOptions={HeaderOptions}
+        >
+            <ContactNavigator.Screen
+                name="Contact Us"
+                component={Contact}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </ContactNavigator.Navigator>
+    );
+}
+
+const MenuNavigator = createStackNavigator();
 
 function MenuNavigatorScreen() {
     return(
@@ -111,67 +167,6 @@ function MenuNavigatorScreen() {
                 options={{ headerTitle: "Dish Detail"}}
             />            
         </MenuNavigator.Navigator>
-    );
-}
-
-const HomeNavigator = createStackNavigator();
-
-
-function HomeNavigatorScreen() {
-    return(
-        <HomeNavigator.Navigator
-            initialRouteName='Home'
-            screenOptions={HeaderOptions}
-        >
-            <HomeNavigator.Screen
-                name="Home"
-                component={Home}
-                options={
-                    ({navigation}) => ({
-                        headerLeft: () => (
-                            <Icon 
-                                name='menu' 
-                                size={24}
-                                color='white'
-                                onPress={() => 
-                                    navigation.toggleDrawer()}
-                            />
-                        )
-                    
-                    })
-                 }
-            />
-        </HomeNavigator.Navigator>
-    );
-}
-
-const ContactNavigator = createStackNavigator();
-
-function ContactNavigatorScreen(){
-    return(
-        <ContactNavigator.Navigator
-            initialRouteName='Contact Us'
-            screenOptions={HeaderOptions}
-        >
-            <ContactNavigator.Screen
-                name="Contact Us"
-                component={Contact}
-                options={
-                    ({navigation}) => ({
-                        headerLeft: () => (
-                            <Icon 
-                                name='menu' 
-                                size={24}
-                                color='white'
-                                onPress={() => 
-                                    navigation.toggleDrawer()}
-                            />
-                        )
-                    
-                    })
-                 }
-            />
-        </ContactNavigator.Navigator>
     );
 }
 
@@ -270,6 +265,25 @@ function FavoritesNavigatorScreen(){
     );
 }
 
+const CustomDrawerContentComponent = (props) => (
+    <ScrollView>
+        <View style={styles.drawerHeader}>
+            <View style={{flex: 1}}>
+                <Image 
+                    source={require('./images/logo.png')}
+                    style={styles.drawerImage}
+                />
+            </View>
+            <View style={{flex: 2}}>
+                <Text style={styles.drawerHeaderText}>
+                    Ristorante Con Fusion
+                </Text>
+            </View>
+        </View>
+        <DrawerItemList {...props}/>
+    </ScrollView>
+);
+
 const MainNavigator = createDrawerNavigator();
 
 function MainNavigatorDrawer() {
@@ -288,6 +302,21 @@ function MainNavigatorDrawer() {
                     drawerIcon: ({tintColor}) => (
                         <Icon
                             name='home'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor}
+                        />
+                    )
+                }}
+
+            />
+            <MainNavigator.Screen 
+                name="Login"       
+                component={LoginNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='sign-in'
                             type='font-awesome'
                             size={24}
                             color={tintColor}
