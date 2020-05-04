@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "confusion5",
-    "slug": "confusion5",
+    "name": "confusion",
+    "icon": "./icon.png",
+    "slug": "confusion",
     "platforms": [
       "ios",
       "android",
@@ -9,7 +10,6 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,7 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "net.food.confusion.confusion"
+    },
+    "android": {
+      "package": "net.food.confusion.confusion"
+    },
+    "description": ""
   }
 }
