@@ -26,12 +26,26 @@ Next you will need to install all the packages:
 
 ```
 npm install package.json
+npm install -g json-server
 ```
 
 This will install all the packages needed to successfully start up the application. 
 
 Now start the React App
 
+
+First you will need to run the json-server in a terminal:
+
+```
+cd json-server
+json-server --watch db.json --host 192.168.1.194 -p 3010 -d 2000
+```
+
+N.B. the ip address needs to match your local Ipv4 address. This can be checked in Wifi-Hardware Properties on Windows.
+
+Now you can start running the app.
+
+In a new terminal run:
 
 ```
 npm start
@@ -44,3 +58,5 @@ next run the expo client
 ```
 expo start
 ```
+
+This will generate a QR code that can be scanned by the mobile Expo-Cli to load the web-app
